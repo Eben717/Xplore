@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import Navbar from "@/components/ui/NavBar";
+import Footer from "@/components/ui/Footer";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -14,17 +15,19 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Xplore | Comprehensive Tech & Business Solutions",
+  title: "Xplore | Next-Generation Solutions",
   description: "Xplore specializes in Accounting, Taxation, Cybersecurity, AI, IT support, Networking and Software Development services.",
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <Navbar />
-        {children}
-        <Footer />
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <Navbar />
+          {children}
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );
