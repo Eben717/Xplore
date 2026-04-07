@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   Calculator,
@@ -10,152 +9,132 @@ import {
   Network,
   Code,
   Landmark,
+  ArrowRight,
 } from "lucide-react";
+import clsx from "clsx";
 
-const allServices = [
+const services = [
   {
     id: "accounting",
     category: "Finance",
-    title: "Accounting",
-    desc: "Precision and transparency for your financial peace of mind. We balance your books to perfection.",
+    title: "Precision Accounting",
+    desc: "Unmatched clarity for your financial peace of mind. We balance your books to perfection.",
     icon: Calculator,
-  },
-  {
-    id: "taxation",
-    category: "Finance",
-    title: "Taxation",
-    desc: "Expert tax planning and compliance to minimize liability and maximize your growth.",
-    icon: Landmark,
+    className: "md:col-span-2 md:row-span-2",
   },
   {
     id: "cybersecurity",
     category: "Tech",
-    title: "Cybersecurity",
-    desc: "Elite protection for your critical data. We identify vulnerabilities before they are exploited.",
+    title: "Elite Cybersecurity",
+    desc: "Next-gen protection for your critical data via continuous monitoring.",
     icon: ShieldCheck,
+    className: "md:col-span-1 md:row-span-2",
   },
   {
     id: "ai",
     category: "Tech",
-    title: "AI Solutions",
-    desc: "Harness the power of Artificial Intelligence to automate processes and uncover actionable insights.",
+    title: "AI & ML Solutions",
+    desc: "Harness Neural Networks to uncover insights.",
     icon: Cpu,
-  },
-  {
-    id: "it-support",
-    category: "Tech",
-    title: "IT Support",
-    desc: "Reliable, round-the-clock technical assistance ensuring seamless business operations.",
-    icon: Headset,
-  },
-  {
-    id: "networking",
-    category: "Tech",
-    title: "Networking",
-    desc: "Robust and scalable network infrastructure tailored to your organizational demands.",
-    icon: Network,
+    className: "md:col-span-1 md:row-span-1",
   },
   {
     id: "software",
     category: "Tech",
-    title: "Software Development",
-    desc: "Custom, cutting-edge software applications designed to propel your business forward.",
+    title: "Custom Software",
+    desc: "Bespoke engineered solutions that drive growth.",
     icon: Code,
+    className: "md:col-span-2 md:row-span-1",
+  },
+  {
+    id: "taxation",
+    category: "Finance",
+    title: "Strategic Taxation",
+    desc: "Innovative tax engineering.",
+    icon: Landmark,
+    className: "md:col-span-1 md:row-span-1",
+  },
+  {
+    id: "infrastructure",
+    category: "IT",
+    title: "Cloud & Network Infra",
+    desc: "Scalable, zero-trust cloud network architecture.",
+    icon: Network,
+    className: "md:col-span-2 md:row-span-1",
   },
 ];
 
 export default function Services() {
-  const [filter, setFilter] = useState("All");
-  const categories = ["All", "Finance", "Tech"];
-
-  const filteredServices = allServices.filter((s) =>
-    filter === "All" ? true : s.category === filter
-  );
-
   return (
-    <section id="services" className="py-24 bg-slate-50 dark:bg-slate-900/50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-2xl mx-auto mb-16">
+    <section id="services" className="py-32 bg-[#020305] relative overflow-hidden">
+      {/* Glow spots */}
+      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-600/10 dark:bg-purple-600/5 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-purple-600/10 dark:bg-blue-600/5 blur-[120px] rounded-full pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="text-center max-w-3xl mx-auto mb-20">
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6"
+            viewport={{ once: true, margin: "-100px" }}
+            className="text-5xl md:text-6xl font-bold font-outfit text-white mb-6"
           >
-            Our{" "}
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
-              Expertise
+            Engineering Your{" "}
+            <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+              Advantage
             </span>
           </motion.h2>
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-lg text-slate-600 dark:text-slate-400"
+            transition={{ delay: 0.2 }}
+            className="text-xl text-slate-400 font-light"
           >
-            Comprehensive solutions tailored to navigate the complexities of modern business with precision and unmatched reliability.
+            Beyond conventional services—we provide architected solutions designed to scale, secure, and accelerate your enterprise.
           </motion.p>
         </div>
 
-        {/* Filter Tabs */}
-        <div className="flex justify-center mb-12">
-          <div className="inline-flex bg-white dark:bg-slate-800 p-1.5 rounded-full shadow-sm border border-gray-200 dark:border-slate-700">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setFilter(cat)}
-                className={`relative px-6 py-2 rounded-full text-sm font-medium transition-colors ${
-                  filter === cat
-                    ? "text-white"
-                    : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"
-                }`}
-              >
-                {filter === cat && (
-                  <motion.div
-                    layoutId="activeFilter"
-                    className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full"
-                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                  />
-                )}
-                <span className="relative z-10">{cat}</span>
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Services Grid */}
-        <motion.div
-          layout
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
-          {filteredServices.map((service, idx) => (
+        <div className="grid grid-cols-1 md:grid-cols-3 md:grid-rows-4 gap-6 auto-rows-[250px]">
+          {services.map((service, i) => (
             <motion.div
-              layout
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.3 }}
-              whileHover={{ y: -8 }}
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ delay: i * 0.1, duration: 0.5 }}
+              whileHover={{ scale: 1.02 }}
               key={service.id}
-              className="group relative bg-white dark:bg-slate-800 rounded-2xl p-8 border border-gray-100 dark:border-slate-700 shadow-sm hover:shadow-xl hover:shadow-blue-500/10 dark:hover:shadow-purple-500/10 transition-all overflow-hidden"
+              className={clsx(
+                "group relative rounded-3xl p-8 overflow-hidden glass-card",
+                service.className
+              )}
             >
-              <div className="absolute top-0 right-0 p-8 opacity-0 group-hover:opacity-5 transition-opacity duration-500 pointer-events-none transform -translate-y-4 translate-x-4">
-                <service.icon className="w-32 h-32 text-slate-900 dark:text-white" />
+              {/* Refractive gradient background */}
+              <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+              <div className="relative z-10 h-full flex flex-col justify-between">
+                <div>
+                  <div className="w-14 h-14 bg-white/5 backdrop-blur-md rounded-2xl flex items-center justify-center mb-6 text-blue-400 border border-white/10 group-hover:bg-blue-500/20 group-hover:text-blue-300 transition-all duration-300 shadow-lg">
+                    <service.icon className="w-7 h-7" />
+                  </div>
+                  <h3 className="text-2xl font-bold font-outfit text-white mb-3 tracking-wide">
+                    {service.title}
+                  </h3>
+                  <p className="text-slate-400 leading-relaxed font-light text-lg">
+                    {service.desc}
+                  </p>
+                </div>
+                
+                <div className="pt-6 relative">
+                   <div className="absolute left-0 bottom-0 w-0 h-[2px] bg-gradient-to-r from-blue-500 to-purple-500 group-hover:w-full transition-all duration-500"></div>
+                   <button className="flex items-center gap-2 text-sm font-semibold text-white/50 group-hover:text-white transition-colors">
+                     View Details <ArrowRight className="w-4 h-4 translate-x-0 group-hover:translate-x-1 transition-transform" />
+                   </button>
+                </div>
               </div>
-              
-              <div className="w-14 h-14 bg-blue-50 dark:bg-purple-500/10 rounded-xl flex items-center justify-center mb-6 text-blue-600 dark:text-purple-400 group-hover:scale-110 transition-transform">
-                <service.icon className="w-7 h-7" />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">
-                {service.title}
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
-                {service.desc}
-              </p>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

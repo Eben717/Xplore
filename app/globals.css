@@ -6,12 +6,13 @@
   --color-blue-400: #60a5fa;
   --color-blue-500: #3b82f6;
   --color-blue-600: #2563eb;
-
+  
   --color-purple-50: #faf5ff;
   --color-purple-400: #c084fc;
   --color-purple-500: #a855f7;
   --color-purple-600: #9333ea;
-  
+
+  /* Premium Cosmic Darks */
   --color-slate-50: #f8fafc;
   --color-slate-100: #f1f5f9;
   --color-slate-200: #e2e8f0;
@@ -19,28 +20,47 @@
   --color-slate-400: #94a3b8;
   --color-slate-500: #64748b;
   --color-slate-600: #475569;
-  --color-slate-700: #334155;
-  --color-slate-800: #1e293b;
-  --color-slate-900: #0f172a;
-  --color-slate-950: #020617;
+  --color-slate-700: #202b3a;
+  --color-slate-800: #0a0e14;
+  --color-slate-900: #05070a;
+  --color-slate-950: #020305;
 }
 
 @layer base {
   :root {
-    --background: #ffffff;
-    --foreground: #0f172a;
+    --background: #fdfdfd;
+    --foreground: #020305;
   }
 
-  /* Support next-themes dark mode class */
   .dark {
-    --background: #0f172a;
+    --background: #020305;
     --foreground: #f8fafc;
   }
 }
 
 * {
   box-sizing: border-box;
-  scroll-behavior: smooth;
+  /* removing scroll-behavior: smooth internally because Lenis handles it better */
+}
+
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
 }
 
 body {
@@ -58,14 +78,45 @@ body {
 }
 
 .dark .glass {
-  background: rgba(15, 23, 42, 0.6);
+  background: rgba(10, 14, 20, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.glass-card {
+  background: linear-gradient(145deg, rgba(255,255,255,1), rgba(255,255,255,0.8));
+}
+
+.dark .glass-card {
+  background: linear-gradient(135deg, rgba(10, 14, 20, 0.9), rgba(5, 7, 10, 0.95));
+  border: 1px solid rgba(255,255,255,0.05);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
 }
 
 @keyframes pulse-slow {
-  0%, 100% { opacity: 0.5; transform: scale(1); }
-  50% { opacity: 0.8; transform: scale(1.05); }
+  0%, 100% { opacity: 0.1; transform: scale(1); }
+  50% { opacity: 0.25; transform: scale(1.05); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
 }
 
 .animate-pulse-slow {
-  animation: pulse-slow 10s ease-in-out infinite alternate;
+  animation: pulse-slow 8s ease-in-out infinite alternate;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Text glow */
+.text-glow {
+  text-shadow: 0 0 20px rgba(96, 165, 250, 0.5);
+}
+
+.dark .text-glow {
+  text-shadow: 0 0 30px rgba(96, 165, 250, 0.3);
 }
