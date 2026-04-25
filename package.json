@@ -9,7 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@studio-freight/react-lenis": "^0.0.47",
+    "lenis": "^1.1.20",
     "clsx": "^2.1.1",
     "framer-motion": "^11.0.3",
     "lucide-react": "^0.331.0",
